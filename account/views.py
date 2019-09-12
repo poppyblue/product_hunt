@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import auth
-from django.http import HttpResponse
 
 
 # Create your views here.
@@ -46,4 +45,3 @@ def login(request):
 def logout(request):
 	auth.logout(request)
 	return redirect('主页')
-	# return HttpResponse("hello")
