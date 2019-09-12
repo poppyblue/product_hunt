@@ -1,19 +1,40 @@
-from django.shortcuts import render
-
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from . models import Product
+from django.utils import timezone
 # Create your views here.
 
 
 def product_list(request):
 	return render(request, 'product_list.html')
 
+# 装饰器，只有登陆用户才看得到
+@login_required
 def publish(request):
 	if request.method == 'GET':
 		return render(request, 'publish.html')
 	elif request.method == 'POST':
-		app_name = request.POST['名称']
+		app_title = request.POST['标题']
 		app_intro = request.POST['介绍']
 		app_url = request.POST['链接']
-		app_icon = request.FILES['图标']
-		app_image = request.FILES['大图']
-		return render(request, 'publish.html')
-		
+		try:
+			app_icon = request.FILES['图标']
+			app_image = request.FILES['大图']
+
+			product = Product()
+			product.title = app_title
+			product.intro = app_intro
+			product.url = app_url
+			product.icon = app_icon
+			product.image = app_image
+
+			product.pub_date = timezone.datetime.now()
+			product.hunter = request.user
+
+			product.save()
+			return redirect('主页')
+		except Exception as err:
+			return render(request, 'publish.html', {'错误': '上传图片！'})
+
+
+
