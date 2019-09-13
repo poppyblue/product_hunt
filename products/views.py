@@ -42,5 +42,3 @@ def publish(request):
 		except Exception as err:
 			return render(request, 'publish.html', {'错误': '上传图片！'})
 
-
-

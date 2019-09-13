@@ -5,17 +5,18 @@
 
 <div class="container">
 	<div class="row">
-		<div class="card" style="width: 188rem;">
-			<img class="card img top" src="{% url '{{ product.icon.url }}
-	' %}" alt="Card image top">
+		<div class="card" style="width: 18rem;">
+			<img class="card-img-top" src="{{ product.app_icon.url }}" alt="Card img cap">
 		</div>
-		<div class="col-md-8" style="padding-left: 38px">
-			<h3><a href="products/{{ product.id }}">{{ product.title }}</h3>
+		<div class="col-md-8" style="padding-left=30px">
+			<h3>
+				<a href="products/{{ product.id }}">{{ product.app_title }}</a>
+			</h3>
 			<br>
-			{{ product.intro }}
+			{{ product.app_intro }}
 		</div>
+		<a style="float:right;" href="{% url '主页' %}">返回</a>
 	</div>
 </div>
-
 {% endblock content %}
 
